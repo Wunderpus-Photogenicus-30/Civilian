@@ -3,9 +3,9 @@ const path = require('path');
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-const apiRouter = require('./routes/api');
+// const apiRouter = require('./routes/api');
 
 // Handels parsing request body
 app.use(express.json());
@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 });
 
 // defining route handlers
-app.use('/api', apiRouter);
+
 
 // global error handler
 app.use((err, req, res, next) => {
@@ -49,7 +49,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start Server
-app.listen(Port, () => {
+app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
 
