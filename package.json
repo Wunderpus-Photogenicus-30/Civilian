@@ -8,7 +8,6 @@
   },
   "repository": {
     "type": "git",
-    sad
     "url": "git+https://github.com/Wunderpus-Photogenicus-30/Civilian.git"
   },
   "author": "",
@@ -16,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Wunderpus-Photogenicus-30/Civilian/issues"
   },
-  "homepage": "https://github.com/Wunderpus-Photogenicus-30/Civilian#readme"
+  "homepage": "https://github.com/Wunderpus-Photogenicus-30/Civilian#readme",
+  "dependencies": {
+    "react": "^17.0.2"
+  }
 }
