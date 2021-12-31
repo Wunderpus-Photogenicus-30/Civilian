@@ -19,7 +19,6 @@
   "homepage": "https://github.com/Wunderpus-Photogenicus-30/Civilian#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "epress": "^0.0.1-security",
     "node": "^17.3.0",
     "axios": "^0.24.0",
     "express": "^4.17.2",
