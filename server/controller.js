@@ -21,6 +21,33 @@ controller.get = async (req, res, next) => {
   }
 }
 
+
+controller.newEvent = async (req, res, next) => {
+  try {
+  const { id, title, location, video_url, image_url, username, photo, email, details, time } = req.body;
+
+  const params = [ id, title, location, video_url, image_url, username, photo, email, details, time ];
+
+  const text = `
+    INSERT INTO public.user (id, title, location, username, photo, email, details, time)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    RETURNING *
+    `;
+
+  const result = await db.query(text, params);
+  res.locals.allEvents = result;
+  
+  } catch (error) {
+    return next({
+      log: `controller.newEvent ERROR found`,
+      status: 500,
+      message: {err: 'Error occurred in controller.newEvent. Check the server logs.'},
+    });
+  }
+}
+
+
+/* Tried to write it this way and it wasn't working
 controller.newEvent = async (req, res, next) => {
   try {
     let event = req.body;
@@ -34,7 +61,8 @@ controller.newEvent = async (req, res, next) => {
       username, 
       photo, 
       email, 
-      details)
+      details,
+      time)
       VALUES (
       '${event.id}',
       '${event.title}',
@@ -44,7 +72,8 @@ controller.newEvent = async (req, res, next) => {
       '${event.username}', 
       '${event.photo}', 
       '${event.email}', 
-      '${event.details}')
+      '${event.details}',
+      '${event.time}')
     RETURNING *`;
 
     const result = await db.query(queryString);
@@ -60,6 +89,6 @@ controller.newEvent = async (req, res, next) => {
     });
   }
 }
-
+*/
 
 module.exports = controller;

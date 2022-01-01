@@ -22,8 +22,8 @@ router.get('/', controller.get, (req, res) =>
 //   res.status(200).json(res.locals.recent)
 // );
 
-router.post('/event', controller.newEvent, (req, res) =>
-  res.status(201).json(res.locals.newEvent)
+router.post('/events', controller.newEvent, (req, res) =>
+  res.status(201).json(res.locals.allEvents)
 );
 
 module.exports = router;
