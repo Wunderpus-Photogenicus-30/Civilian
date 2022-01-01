@@ -31,7 +31,7 @@ const Post = (props) => {
         <p className='post-time'> {props.time} </p>
       </div> 
       <div className='post-image'>
-        <img src={props.imgUrl} alt="willsentance" onClick={() => props.setExpandedPost(true)}/>
+        <img id='thumbnail' src={props.imgUrl} alt="willsentance" onClick={() => props.setExpandedPost(true)}/>
       </div>
     </div>
   );

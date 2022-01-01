@@ -15,7 +15,10 @@ const App = (props) => {
   console.log('expandedPost', props.expandedPost)
   return (
     <div id="app">
-      <Post />
+      <div id="main-content">
+        <div id="map">MAP HERE</div>
+        <Post />
+      </div>
       {props.expandedPost && (<ExpandedPost />)}
     </div>
   );
