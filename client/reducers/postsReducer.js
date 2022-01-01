@@ -6,7 +6,7 @@ const initialState = {
   details: 'Reports of excessive hollering and clapping noise',
   time: '6:30pm',
   imgUrl: 'https://static.frontendmasters.com/assets/teachers/sentance/thumb@2x.jpg',
-  videoUrl: 'https://www.youtube.com/embed/sqAwvpw_FKc',
+  videoUrl: 'https://www.youtube.com/embed/sqAwvpw_FKc?&autoplay=1&rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0',
   expandedPost: false
 };
 

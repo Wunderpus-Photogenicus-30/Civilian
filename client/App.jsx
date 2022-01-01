@@ -15,6 +15,7 @@ const App = (props) => {
   console.log('expandedPost', props.expandedPost)
   return (
     <div id="app">
+      <img id="logo" src="https://cdn-icons-png.flaticon.com/512/1476/1476778.png"/>
       <div id="main-content">
         <div id="map">MAP HERE</div>
         <Post />
