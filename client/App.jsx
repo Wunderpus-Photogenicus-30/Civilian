@@ -4,6 +4,7 @@ import Post from './components/Post';
 import ExpandedPost from './components/ExpandedPost';
 import { connect } from 'react-redux';
 import './stylesheets/styles.css';
+import {CSSTransition} from 'react-transition-group';
 
 
 const mapStateToProps = ({posts: { expandedPost }}) => ({
@@ -19,7 +20,10 @@ const App = (props) => {
         <div id="map">MAP HERE</div>
         <Post />
       </div>
-      {props.expandedPost && (<ExpandedPost />)}
+      {props.expandedPost && (
+      <CSSTransition in={props.expandedPost} timeout={500} classNames="expanded-transition" unmountOnExit appear>
+        <ExpandedPost key={1000}/>
+    </CSSTransition>)}
     </div>
   );
 };

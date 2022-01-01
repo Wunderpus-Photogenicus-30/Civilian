@@ -7,7 +7,7 @@
 html, body {
   height: 100%;
   font-size: 16px;
-  background-color: #1D1E0F;
+  background-color: #232626;
   color: #F3F9D2;
   /* overflow: hidden; */
 }
@@ -37,6 +37,7 @@ html, body {
 }
 
 #logo{
+  margin-top: 20px;
   width: 150px;
   height: 150px;
 }
@@ -56,7 +57,9 @@ html, body {
   border: 1px solid transparent;
   border-radius: 20px;
   gap: 20px;
-  background-color: #000000;
+  background-color: white;
+  color: black;
+  font-family: 'Poppins', sans-serif;
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
@@ -90,6 +93,7 @@ html, body {
   padding: 10px;
   z-index: 1000;
   background-color: #000000;
+  font-family: 'Poppins', sans-serif;
 }
 
 #expanded-header{
@@ -113,5 +117,37 @@ html, body {
   width: 100%;
 }
 
+.expanded-transition-enter,
+.expanded-transition-appear{
+  top: 0;
+  right: -400px;
+  height: 100%;
+  color: transparent;
+  background-color: transparent;
+}
 
+.expanded-transition-enter-active,
+.expanded-transition-appear-active {
+  top: 0;
+  right: 0;
+  background-color: black;
+  color: white;
+  transition: all 400ms;
+}
+
+.expanded-transition-exit {
+  top: 0;
+  right: 0;
+  background-color: black;
+  color: white;
+}
+/* fires as element leaves the DOM*/
+.expanded-transition-exit-active {
+  top: 0;
+  right: -400px;
+  height: 100%;
+  color: transparent;
+  background-color: transparent;
+  transition: all 400ms;
+}
 
