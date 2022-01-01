@@ -8,7 +8,7 @@ console.log('in Post.jsx');
 // we are destructuring the state to get the title, loc, details, time from
 // the redux state and placing them into the props object
 // The Post component "subscribes to" the changes seen in the state
-const mapStateToProps = ({ title, location, details, time, imgUrl }) => ({
+const mapStateToProps = ({posts: { title, location, details, time, imgUrl }}) => ({
   title,
   location,
   details,
@@ -21,6 +21,7 @@ const mapStateToProps = ({ title, location, details, time, imgUrl }) => ({
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
 const Post = (props) => {
+  console.log(props);
   return (
     <div className='post'>
       <div className='post-header'>
@@ -30,7 +31,7 @@ const Post = (props) => {
         <p className='post-time'> {props.time} </p>
       </div> 
       <div className='post-image'>
-        <img src={props.imageUrl} onClick={() => props.setExpandedPost('visible')}/>
+        <img src={props.imgUrl} alt="willsentance" onClick={() => props.setExpandedPost(true)}/>
       </div>
     </div>
   );

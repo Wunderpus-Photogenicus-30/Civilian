@@ -4,10 +4,10 @@ const initialState = {
   title: 'Noise Disturbance',
   location: 'Codesmith HQ',
   details: 'Reports of excessive hollering and clapping noise',
-  time: '24/7',
+  time: '6:30pm',
   imgUrl: 'https://static.frontendmasters.com/assets/teachers/sentance/thumb@2x.jpg',
-  videoUrl: 'https://www.youtube.com/watch?v=sqAwvpw_FKc',
-  expandedPost: 'hidden'
+  videoUrl: 'https://www.youtube.com/embed/sqAwvpw_FKc',
+  expandedPost: false
 };
 
 const postsReducer = (state=initialState, action) => {
