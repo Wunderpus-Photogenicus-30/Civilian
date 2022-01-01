@@ -12,7 +12,6 @@ const mapStateToProps = ({posts: { expandedPost }}) => ({
 
 const App = (props) => {
   console.log('in app.jsx');
-  console.log('expandedPost', props.expandedPost)
   return (
     <div id="app">
       <img id="logo" src="https://cdn-icons-png.flaticon.com/512/1476/1476778.png"/>
