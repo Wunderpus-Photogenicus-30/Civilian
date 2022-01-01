@@ -1,10 +1,10 @@
 import * as types from '../constants/actionTypes';
-
+//useEffect
 const initialState = {
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    lng: -70.9,
-    lat: 42.35,
+    lng: 40.9,
+    lat: 74.35,
     zoom: 9
 }
 

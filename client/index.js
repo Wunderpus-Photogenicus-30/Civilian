@@ -4,9 +4,9 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './App';
 import store from './store';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import './index.css';
 import Map from './components/Map';
+import './stylesheets/styles.css';
+import * as mapboxgl from 'mapbox-gl';
 
 console.log('in index.js')
 

@@ -8,3 +8,9 @@ export const setMap = (visibility) => ({
     type: types.SET_MAP,
     payload: visibility,
 })
+export const setExpandedPost = (visibility) => ({
+
+  type: types.SET_EXPANDED_POST,
+  payload: visibility,
+
+});
