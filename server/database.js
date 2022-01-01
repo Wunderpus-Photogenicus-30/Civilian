@@ -16,13 +16,13 @@ const PG_URI =
     id, (bigint) <-- PRIMARY KEY
     title, (varchar) 
     location, (varchar)
-    timestamp, (timestampe without time zone) <-- 2021-12-31 16:00:00
     video_url, (varchar)
     image_url, (varchar)
     username, (varchar)
     photo, (varchar)
     email, (varchar)
     details, (varchar)
+    time (varchar)
 
   */  
 
