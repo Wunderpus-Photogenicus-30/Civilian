@@ -40,7 +40,7 @@ const Map = (props) => {
                 // console.log(props.viewport)
                 props.setMap(newViewport)
             }}>
-                {fakeData.map((el, key) => {
+                {mockData.map((el, key) => {
                     return (
                     <Marker key={key + 1} latitude={el.latitude} longitude={el.longitude}>
                     {/* button onclick post pops up */}
