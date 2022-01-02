@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
+import ReactDom from "react-dom";
+import Map from './components/Map';
+
+
 import { connect } from 'react-redux';
 import './stylesheets/styles.css';
 import logo from '../assets/danger-pin.png'
@@ -27,7 +31,8 @@ const App = (props) => {
       </div>
       <div id="main-content">
         <div id="map">
-          <img id="map-img" src="https://assets.website-files.com/5e832e12eb7ca02ee9064d42/5f7db426b676b95755fb2844_Group%20805.jpg"/>
+          {/* <img id="map-img" src="https://assets.website-files.com/5e832e12eb7ca02ee9064d42/5f7db426b676b95755fb2844_Group%20805.jpg"/> */}
+          <Map />
         </div>
         <Post />
       </div>
