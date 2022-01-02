@@ -10,8 +10,9 @@ import { bindActionCreators } from 'redux';
 console.log('in Map.jsx')
 //destructuring the state to get lng, lat, zoom from redux state and put them into prop obj 
 
-const mapStateToProps = ({map: {viewport}}) => ({
+const mapStateToProps = ({map: {viewport, pinLocations}}) => ({
     viewport,
+    pinLocations
   })
 
 // allows us to use the actions in actions.js without having to wrap them so that we can invoke those functions
@@ -24,15 +25,8 @@ const Map = (props) => {
     // console.log(process.env.REACT_APP_MAPBOX_ACCESS_TOKEN)
 
     //mocking data to randomly display pins on map
-    const mockData = []
-    for(let i = 0; i < 10; i++){
-        const lat = .02 - Math.random() * 0.04
-        const lng = .02 - Math.random() * 0.04
-        mockData.push({latitude: 40.71 + lat, longitude: -74 + lng})
 
-    }
-
-    
+    console.log(props.pinLocations)
 
     return (
         <div>
@@ -40,14 +34,13 @@ const Map = (props) => {
                 // console.log(props.viewport)
                 props.setMap(newViewport)
             }}>
-                {mockData.map((el, key) => {
+                {props.pinLocations.map((el, key) => {
+                    
                     return (
                     <Marker key={key + 1} latitude={el.latitude} longitude={el.longitude}>
                     {/* button onclick post pops up */}
                         <button onClick={(e) => {
                             console.log(e)
-
-
 
                         }}style={{backgroundColor: 'transparent'}}><img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCkP7QFhZEIqrhTgIxZIJKmW0zBB50L1Fc6xVI4T7U8cNaNHxEOjxu3Wl578bNT6DHmsY&usqp=CAU'} alt='pin' style={{backgroundColor: 'transparent', height: '50px', width: '50px'}}/></button>
                     </Marker>
