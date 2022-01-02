@@ -8,3 +8,20 @@ export const setExpandedPost = (visibility) => ({
   payload: visibility,
 
 });
+
+export const getUsername = (username, password) => (dispatch) => {
+
+  console.log('in getusername axios req');
+  axios.post(`/login`, {
+      username: user,
+      password: password
+    })
+    .then(({data}) => {
+      console.log('data', data);
+      dispatch({
+        type: types.GET_USERNAME,
+        payload: data,
+      });
+    })
+    .catch(console.error);
+};

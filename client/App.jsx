@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { useState, useEffect } from "react"
-import Post from './components/Post';
-import ExpandedPost from './components/ExpandedPost';
 import { connect } from 'react-redux';
 import './stylesheets/styles.css';
+import logo from '../assets/danger-pin.png'
+import { BsPersonCircle } from 'react-icons/bs'
+import { IconContext } from 'react-icons';
+
+import Post from './components/Post';
 import {CSSTransition} from 'react-transition-group';
+import ExpandedPost from './components/ExpandedPost';
 
 
 const mapStateToProps = ({posts: { expandedPost }}) => ({
@@ -14,9 +18,12 @@ const mapStateToProps = ({posts: { expandedPost }}) => ({
 const App = (props) => {
   console.log('in app.jsx');
   return (
-    <div id="app">
+    <div id='app'>
+      <IconContext.Provider value={{className: 'login-button', size:'2em'}}>
+        <BsPersonCircle />
+      </IconContext.Provider>
       <div id="logo-wrapper">
-        <img id="logo" src="https://cdn-icons-png.flaticon.com/512/1476/1476778.png"/>
+        <img id="logo" src={logo}/>
       </div>
       <div id="main-content">
         <div id="map">
