@@ -6,11 +6,23 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // const apiRouter = require('./routes/api');
+const whitelist = ["http://localhost:3000", "http://www.localhost:3000", "api.mapbox.com", "mapbox.com", "www.mapbox.com", "api.mapbox.com", "api.tiles.mapbox.com", "events.mapbox.com", "a.tiles.mapbox.com", "b.tiles.mapbox.com", "c.tiles.mapbox.com", "d.tiles.mapbox.com"];
 
+const corsOptions = {
+  credentials: true,
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin) || !origin) {
+      return callback(null, true);
+    } else {
+      callback(new Error(`origin ${origin} not allowed by CORS`));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 // Handels parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
 // handle requests for static files
 app.use(express.static('./client'));

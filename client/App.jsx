@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
+import ReactDom from "react-dom";
+import Map from './components/Map';
 import Post from './components/Post';
 import ExpandedPost from './components/ExpandedPost';
 import { connect } from 'react-redux';
@@ -17,7 +19,9 @@ const App = (props) => {
     <div id="app">
       <img id="logo" src="https://cdn-icons-png.flaticon.com/512/1476/1476778.png"/>
       <div id="main-content">
-        <div id="map">MAP HERE</div>
+        <div id="map">
+          <Map />
+        </div>
         <Post />
       </div>
       {props.expandedPost && (<ExpandedPost />)}
