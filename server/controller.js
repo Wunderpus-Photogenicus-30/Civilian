@@ -50,27 +50,27 @@ controller.getIncidents = async (req, res, next) => {
   }
 };
 
-controller.getIncidentByUserId = async (req, res, next) => {
-  console.log(req.params);
+controller.getUserName = async (req, res, next) => {
+  console.log('req body', req.body);
   try {
-    const { userId } = req.params;
+    const { username, password } = req.body;
     // SQL command string
-    const queryString = `SELECT * from public.incident WHERE user_id = $1`;
+    const queryString = `SELECT name, photo from public.user WHERE name = $1 and password = $2`;
 
     // db query function to get info from our database
-    const result = await db.query(queryString, [userId]);
+    const result = await db.query(queryString, [username, password]);
 
     // db.query will return a giant nested object. We just need the data in the rows key
     const data = result.rows;
 
     // store data in res.locals.all to pass to api router
-    res.locals.incidentByUserId = data;
+    res.locals.UserName = data;
     return next();
   } catch (error) {
     return next({
-      log: `getIncidentByUserId controller ERROR`,
+      log: `getIncidentByUserName controller ERROR`,
       message: {
-        err: 'Error occurred in controller.getIncidentByUserId. Check the server logs.',
+        err: 'Error occurred in controller.getIncidentByUserName. Check the server logs.',
       },
     });
   }
@@ -82,10 +82,10 @@ controller.getIncidentByStreetName = async (req, res, next) => {
   try {
     const { name } = req.params;
     // SQL command string
-    const queryString = `SELECT * from public.incident WHERE street_name LIKE '%${name}%'`;
+    const queryString = `SELECT * from public.incident WHERE street_name LIKE '%'|| $1 || '%'`;
 
     // db query function to get info from our database
-    const result = await db.query(queryString);
+    const result = await db.query(queryString, [name]);
 
     // db.query will return a giant nested object. We just need the data in the rows key
     const data = result.rows;
@@ -111,32 +111,27 @@ controller.postEvent = async (req, res, next) => {
 
     // object destructuring the req.body to pass in to params
     const {
-      incident_id,
       title,
       street_name,
       video_url,
       image_url,
       details,
-      user_id,
-      location_id,
+
     } = req.body;
     const params = [
       // params will be passed to db query, to insert the data object to the sql db
-      incident_id,
       title,
       street_name,
       video_url,
       image_url,
       details,
       time,
-      user_id,
-      location_id,
     ];
 
     // SQL command to insert values into the following table(public.incident) columns
     const text = `
-      INSERT INTO public.incident (incident_id, title, street_name, video_url, image_url, details, time, user_id, location_id)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      INSERT INTO public.incident (title, street_name, video_url, image_url, details, time)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *
       `;
 
@@ -161,25 +156,19 @@ controller.newUser = async (req, res, next) => {
   console.log(req.body);
   try {
     // object destructuring the req.body to pass in to params
-    const { user_id, name, email, photo, password } = req.body;
+    const { name, password } = req.body;
     const params = [
       // params will be passed to db query, to insert the data object to the sql db
-      user_id,
       name,
-      email,
-      photo,
-      password,
+      password
     ];
 
     // SQL command to insert values into the following table(public.user) columns
     const text = `
       INSERT INTO public.user (
-        user_id,
         name,
-        email,
-        photo,
         password)
-      VALUES ($1, $2, $3, $4, $5)
+      VALUES ($1, $2)
       RETURNING *
       `;
 
