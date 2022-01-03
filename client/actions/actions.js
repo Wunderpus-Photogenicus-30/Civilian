@@ -15,8 +15,6 @@ export const setExpandedPost = (visibility) => ({
 
 });
 
-<<<<<<< HEAD
-=======
 export const getUsername = (username, password) => (dispatch) => {
 
   console.log('in getusername axios req');
@@ -42,4 +40,3 @@ export const changeActivePost = (lat, long) => (dispatch, getState) =>{
   dispatch({ type: types.CHANGE_ACTIVE_POST, payload: [lat, long], allIncidents: allIncidents });
 
 };
->>>>>>> dev

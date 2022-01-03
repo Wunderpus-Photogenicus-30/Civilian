@@ -21,9 +21,8 @@ const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
 const Map = (props) => {
 
-  // 
 
-    console.log(props.pinLocations)
+    console.log('pinLocations are', props.pinLocations)
 
     return (
 
@@ -32,7 +31,7 @@ const Map = (props) => {
           props.setMap(newViewport)
       }}>
           {props.pinLocations.map((el, key) => {
-              
+
               return (
               <Marker key={key + 1} latitude={el.latitude} longitude={el.longitude}>
               {/* button onclick post pops up */}
