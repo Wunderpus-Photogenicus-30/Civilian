@@ -10,19 +10,29 @@ const PG_URI =
 
 
   /* 
-  this database table is called "user".
+  the database has multiple tables:
 
-  It has 10 columns:
-    id, (bigint) <-- PRIMARY KEY
-    title, (varchar) 
-    location, (varchar)
-    video_url, (varchar)
-    image_url, (varchar)
-    username, (varchar)
-    photo, (varchar)
-    email, (varchar)
-    details, (varchar)
-    time (varchar)
+  table public.incident:
+    {
+        "incident_id": 1, <-- PRIMARY KEY
+        "title": "title here",
+        "street_name": "street name, city, state zipcode",
+        "video_url": "video url here"
+        "image_url": "image url here"
+        "details": "details here"
+        "time": "1/2/2022, 10:11:08 PM",
+        "user_id": 1, <-- FOREIGN KEY for public.user
+        "location_id": 1 <-- FOREIGN KEY for public.location
+    },
+
+  table public.user:
+    {
+        "user_id": 1, <-- PRIMARY KEY
+        "name": "Huy Bui",
+        "email": "shuyttea@gmail.com",
+        "photo": "https://avatars.githubusercontent.com/u/94398519?s=40&v=4",
+        "password": "string here"
+    },
 
   */  
 
