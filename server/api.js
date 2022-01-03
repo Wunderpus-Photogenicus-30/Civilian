@@ -5,20 +5,24 @@ const controller = require('./controller');
 const router = express.Router();
 
 // gets all rows from public.user table
-router.get('/users', controller.getUsers, (req, res) =>
-  res.status(200).json(res.locals.userInfo)
+router.get(
+  '/users', 
+  controller.getUsers, 
+  (req, res) => res.status(200).json(res.locals.userInfo)
 );
 
 // gets all incidents from public.incident table
-router.get('/incidents', controller.getIncidents, (req, res) =>
-  res.status(200).json(res.locals.incidentInfo)
+router.get(
+  '/incidents', 
+  controller.getIncidents, 
+  (req, res) => res.status(200).json(res.locals.incidentInfo)
 );
 
-// gets name, photo from pulblic.user by userName, passing username & password in req.body
+// gets name, photo from pulblic.user, passing username &  decrypting password in req.body
 router.get(
-  '/incidents/user',
-  controller.getUserName,
-  (req, res) => res.status(200).json(res.locals.UserName)
+  '/incidents/user', 
+  controller.getUserName, 
+  (req, res) => res.status(200).json(res.locals.user)
 );
 
 // gets all incidents from public.incident by street name. Can target address, city, state, or zipcode
@@ -29,15 +33,23 @@ router.get(
 );
 
 // posts data into a row in the public.incident table
-router.post('/postevent', controller.postEvent, (req, res) =>
-  res.status(201).json(res.locals.allEvents)
+router.post(
+  '/postevent', 
+  controller.postEvent, 
+  (req, res) => res.status(201).json(res.locals.allEvents)
 );
 
-// posts name, password into a row in the public.user table
-router.post('/newuser', controller.newUser, (req, res) =>
-  res.status(201).json(res.locals.newUser)
+// posts name, encrypted password into a row in the public.user table
+router.post(
+  '/signup', 
+  controller.hash, 
+  controller.newUser, 
+  (req, res) =>res.status(201).json(res.locals.newUser)
 );
 
+
+// all these update public.incident by its relevant column. 
+// :Id should match primary key of public.incident.incident_id
 router.put(
   '/incidents/update-title:id',
   controller.updateIncidentTitle,
@@ -67,9 +79,5 @@ router.put(
   controller.updateIncidentDetails,
   (req, res) => res.status(200).json('details was updated!')
 );
-
-// router.get('/recent', (req, res) =>
-//   res.status(200).json(res.locals.recent)
-// );
 
 module.exports = router;
