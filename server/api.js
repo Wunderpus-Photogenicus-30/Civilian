@@ -14,7 +14,7 @@ router.get('/incidents', controller.getIncidents, (req, res) =>
   res.status(200).json(res.locals.incidentInfo)
 );
 
-// gets all incidents from pulblic.user by userName
+// gets name, photo from pulblic.user by userName, passing username & password in req.body
 router.get(
   '/incidents/user',
   controller.getUserName,
@@ -33,7 +33,7 @@ router.post('/postevent', controller.postEvent, (req, res) =>
   res.status(201).json(res.locals.allEvents)
 );
 
-// posts data into a row in the public.user table
+// posts name, password into a row in the public.user table
 router.post('/newuser', controller.newUser, (req, res) =>
   res.status(201).json(res.locals.newUser)
 );
