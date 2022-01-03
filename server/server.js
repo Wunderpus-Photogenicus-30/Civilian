@@ -16,18 +16,18 @@ app.use(cors());
 // handle requests for static files
 app.use(express.static('./client'));
 
-const HMTL_FILE = path.resolve(__dirname, '../client/index.html');
+const HTML_FILE = path.join(__dirname, '../client/index.html');
 
 // route handler to respond with main app
 app.get('/', (req, res) => {
   res
-  .status(200)
-  .contentType('text/html')
-  .sendFile(HTML_FILE, (err) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
+    .status(200)
+    .contentType('text/html')
+    .sendFile(HTML_FILE, (err) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+    });
 });
 
 // defining route handlers
