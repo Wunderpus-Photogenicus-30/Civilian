@@ -78,7 +78,7 @@ controller.getIncidentByUserId = async (req, res, next) => {
 
 controller.getIncidentByStreetName = async (req, res, next) => {
   console.log(req.params);
-  console.log(new Date(Date.now()).toString())
+  console.log(new Date(Date.now()).toString());
   try {
     const { name } = req.params;
     // SQL command string
@@ -104,7 +104,7 @@ controller.getIncidentByStreetName = async (req, res, next) => {
 };
 
 controller.postEvent = async (req, res, next) => {
-  console.log(req.body)
+  console.log(req.body);
   try {
     // capture the current date and time to insert into sql db
     const time = new Date(Date.now()).toLocaleString();
@@ -118,8 +118,8 @@ controller.postEvent = async (req, res, next) => {
       image_url,
       details,
       user_id,
-      location_id
-    } = req.body; 
+      location_id,
+    } = req.body;
     const params = [
       // params will be passed to db query, to insert the data object to the sql db
       incident_id,
@@ -130,7 +130,7 @@ controller.postEvent = async (req, res, next) => {
       details,
       time,
       user_id,
-      location_id
+      location_id,
     ];
 
     // SQL command to insert values into the following table(public.incident) columns
@@ -158,23 +158,17 @@ controller.postEvent = async (req, res, next) => {
 };
 
 controller.newUser = async (req, res, next) => {
-  console.log(req.body)
+  console.log(req.body);
   try {
     // object destructuring the req.body to pass in to params
-    const {
-      user_id,
-      name,
-      email,
-      photo,
-      password
-    } = req.body; 
+    const { user_id, name, email, photo, password } = req.body;
     const params = [
       // params will be passed to db query, to insert the data object to the sql db
       user_id,
       name,
       email,
       photo,
-      password
+      password,
     ];
 
     // SQL command to insert values into the following table(public.user) columns
@@ -206,19 +200,16 @@ controller.newUser = async (req, res, next) => {
   }
 };
 
-
-
 // updates fields in public.incident table by column name
 controller.updateIncidentTitle = async (req, res, next) => {
   console.log('req.body', req.body);
   try {
     const { id } = req.params; // for sql WHERE
-    const { title } = req.body // for sql SET
+    const { title } = req.body; // for sql SET
     const text = `UPDATE public.incident SET title = $1 WHERE incident_id = $2`;
 
     await db.query(text, [title, id]);
     return next();
-
   } catch (error) {
     return next({
       log: `controller.updateIncidentTitle ERROR found`,
@@ -228,18 +219,17 @@ controller.updateIncidentTitle = async (req, res, next) => {
       },
     });
   }
-}
+};
 
 controller.updateIncidentStreetName = async (req, res, next) => {
   console.log('req.body', req.body);
   try {
     const { id } = req.params; // for sql WHERE
-    const { streetname } = req.body // for sql SET
+    const { streetname } = req.body; // for sql SET
     const text = `UPDATE public.incident SET street_name = $1 WHERE incident_id = $2`;
 
     await db.query(text, [streetname, id]);
     return next();
-
   } catch (error) {
     return next({
       log: `controller.updateIncidentStreetName ERROR found`,
@@ -249,18 +239,17 @@ controller.updateIncidentStreetName = async (req, res, next) => {
       },
     });
   }
-}
+};
 
 controller.updateIncidentVideo = async (req, res, next) => {
   console.log('req.body', req.body);
   try {
     const { id } = req.params; // for sql WHERE
-    const { videoUrl } = req.body // for sql SET
+    const { videoUrl } = req.body; // for sql SET
     const text = `UPDATE public.incident SET video_url = $1 WHERE incident_id = $2`;
 
     await db.query(text, [videoUrl, id]);
     return next();
-
   } catch (error) {
     return next({
       log: `controller.updateIncidentVideo ERROR found`,
@@ -270,18 +259,17 @@ controller.updateIncidentVideo = async (req, res, next) => {
       },
     });
   }
-}
+};
 
 controller.updateIncidentImage = async (req, res, next) => {
   console.log('req.body', req.body);
   try {
     const { id } = req.params; // for sql WHERE
-    const { imageUrl } = req.body // for sql SET
+    const { imageUrl } = req.body; // for sql SET
     const text = `UPDATE public.incident SET image_url = $1 WHERE incident_id = $2`;
 
     await db.query(text, [imageUrl, id]);
     return next();
-
   } catch (error) {
     return next({
       log: `controller.updateIncidentImage ERROR found`,
@@ -291,18 +279,17 @@ controller.updateIncidentImage = async (req, res, next) => {
       },
     });
   }
-}
+};
 
 controller.updateIncidentDetails = async (req, res, next) => {
   console.log('req.body', req.body);
   try {
     const { id } = req.params; // for sql WHERE
-    const { details } = req.body // for sql SET
+    const { details } = req.body; // for sql SET
     const text = `UPDATE public.incident SET details = $1 WHERE incident_id = $2`;
 
     await db.query(text, [details, id]);
     return next();
-
   } catch (error) {
     return next({
       log: `controller.updateIncidentDetails ERROR found`,
@@ -312,6 +299,6 @@ controller.updateIncidentDetails = async (req, res, next) => {
       },
     });
   }
-}
+};
 
 module.exports = controller;

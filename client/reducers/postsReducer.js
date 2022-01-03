@@ -6,8 +6,9 @@ const initialState = {
   details: 'Reports of excessive hollering and clapping noise',
   time: '6:30pm',
   imgUrl: 'https://static.frontendmasters.com/assets/teachers/sentance/thumb@2x.jpg',
-  videoUrl: 'https://www.youtube.com/embed/sqAwvpw_FKc?&autoplay=1&rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0',
-  expandedPost: false
+  videoUrl: 'https://www.youtube.com/embed/sqAwvpw_FKc',
+  expandedPost: false,
+  
 };
 
 const postsReducer = (state=initialState, action) => {
@@ -19,9 +20,29 @@ const postsReducer = (state=initialState, action) => {
         expandedPost: action.payload
       };
 
+    case types.CHANGE_ACTIVE_POST:
+      console.log("incident", action.allIncidents)
+      for (const incident of action.allIncidents){
+        if (incident.location[0] === action.payload[0] && incident.location[1] === action.payload[1]){
+          console.log('found incident', incident);
+          return {
+            ...state,
+            ...incident
+          };
+        }
+        else{
+          return {
+            ...state,
+          };
+        }
+      }
+      
+
     default:
       return state;
   }
+
+  
 }
 
 
