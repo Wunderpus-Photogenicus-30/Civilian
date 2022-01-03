@@ -82,10 +82,10 @@ controller.getIncidentByStreetName = async (req, res, next) => {
   try {
     const { name } = req.params;
     // SQL command string
-    const queryString = `SELECT * from public.incident WHERE street_name LIKE '%${name}%'`;
+    const queryString = `SELECT * from public.incident WHERE street_name LIKE '%'|| $1 || '%'`;
 
     // db query function to get info from our database
-    const result = await db.query(queryString);
+    const result = await db.query(queryString, [name]);
 
     // db.query will return a giant nested object. We just need the data in the rows key
     const data = result.rows;
