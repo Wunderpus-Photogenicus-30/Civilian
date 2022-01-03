@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import ReactDom from "react-dom";
 import Map from './components/Map';
 
@@ -13,7 +13,7 @@ import { IconContext } from 'react-icons';
 import Post from './components/Post';
 import {CSSTransition} from 'react-transition-group';
 import ExpandedPost from './components/ExpandedPost';
-
+import FormModal from './components/FormModal'
 
 const mapStateToProps = ({posts: { expandedPost }}) => ({
   expandedPost
@@ -21,10 +21,13 @@ const mapStateToProps = ({posts: { expandedPost }}) => ({
 
 const App = (props) => {
   console.log('in app.jsx');
+
+  const [showFormModal, setShowFormModal] = useState(false);
+
   return (
     <div id='app'>
       <IconContext.Provider value={{className: 'login-button', size:'2em'}}>
-        <BsPersonCircle />
+        <BsPersonCircle onClick={() => {setShowFormModal(true)}}/>
       </IconContext.Provider>
       <div id="logo-wrapper">
         <img id="logo" src={logo}/>
@@ -39,6 +42,11 @@ const App = (props) => {
       <CSSTransition in={props.expandedPost} timeout={500} classNames="expanded-transition" unmountOnExit appear>
         <ExpandedPost key={1000}/>
       </CSSTransition>
+      {showFormModal && (
+        <FormModal
+          onCloseButtonClick={() => {setShowFormModal(false)}}
+        />
+      )}
     </div>
   );
 };
