@@ -16,9 +16,9 @@ router.get('/incidents', controller.getIncidents, (req, res) =>
 
 // gets all incidents from pulblic.user by userName
 router.get(
-  '/incidents/user/:name',
-  controller.getIncidentByUserName,
-  (req, res) => res.status(200).json(res.locals.incidentByUserName)
+  '/incidents/user',
+  controller.getUserName,
+  (req, res) => res.status(200).json(res.locals.UserName)
 );
 
 // gets all incidents from public.incident by street name. Can target address, city, state, or zipcode

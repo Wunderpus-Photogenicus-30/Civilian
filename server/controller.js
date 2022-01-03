@@ -50,21 +50,21 @@ controller.getIncidents = async (req, res, next) => {
   }
 };
 
-controller.getIncidentByUserName = async (req, res, next) => {
-  console.log('req params', req.params);
+controller.getUserName = async (req, res, next) => {
+  console.log('req body', req.body);
   try {
-    const { name } = req.params;
+    const { username, password } = req.body;
     // SQL command string
-    const queryString = `SELECT name, photo from public.user WHERE name LIKE '%${name}%'`;
+    const queryString = `SELECT name, photo from public.user WHERE name = $1 and password = $2`;
 
     // db query function to get info from our database
-    const result = await db.query(queryString);
+    const result = await db.query(queryString, [username, password]);
 
     // db.query will return a giant nested object. We just need the data in the rows key
     const data = result.rows;
 
     // store data in res.locals.all to pass to api router
-    res.locals.incidentByUserName = data;
+    res.locals.UserName = data;
     return next();
   } catch (error) {
     return next({
