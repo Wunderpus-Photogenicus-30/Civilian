@@ -1,10 +1,12 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const pool = require('./database');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const apiRouter = require('./api');
 // const apiRouter = require('./routes/api');
 const whitelist = ["http://localhost:3000", "http://www.localhost:3000", "api.mapbox.com", "mapbox.com", "www.mapbox.com", "api.mapbox.com", "api.tiles.mapbox.com", "events.mapbox.com", "a.tiles.mapbox.com", "b.tiles.mapbox.com", "c.tiles.mapbox.com", "d.tiles.mapbox.com"];
 
@@ -27,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 // handle requests for static files
 app.use(express.static('./client'));
 
-const HMTL_FILE = path.resolve(__dirname, '../client/index.html');
+const HTML_FILE = path.join(__dirname, '../client/index.html');
 
 // route handler to respond with main app
 app.get('/', (req, res) => {
@@ -43,6 +45,7 @@ app.get('/', (req, res) => {
 
 // defining route handlers
 
+app.use('/api', apiRouter);
 
 // global error handler
 app.use((err, req, res, next) => {
@@ -55,7 +58,7 @@ app.use((err, req, res, next) => {
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj.log);
 
-  const errorStatuscode = errorObj.status || 500;
+  const errorStatusCode = errorObj.status || 500;
 
   return res.status(errorStatusCode).json(errorObj.message);
 });
