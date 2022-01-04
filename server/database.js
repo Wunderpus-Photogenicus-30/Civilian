@@ -21,8 +21,8 @@ const PG_URI =
         "image_url": "image url here"
         "details": "details here"
         "time": "1/2/2022, 10:11:08 PM",
-        "user_id": 1, <-- FOREIGN KEY for public.user
-        "location_id": 1 <-- FOREIGN KEY for public.location
+        "user_id": 1, <-- FOREIGN KEY for public.user.user_id
+        "location_id": 1 <-- FOREIGN KEY for public.location.location_id
     },
 
   table public.user:

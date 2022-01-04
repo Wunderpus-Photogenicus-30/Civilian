@@ -1,7 +1,29 @@
 const db = require('./database');
+const bcrypt = require('bcrypt');
 
 const controller = {};
 
+// hash a user inputted password
+controller.hash = async (req, res, next) => {
+  try {
+    const { name, password } = req.body;
+    const hashedPw = await bcrypt.hash(password, 10, (err, hash) => {
+      const userSignup = { name: name, hashedPw: hash };
+      res.locals.signupInfo = userSignup;
+      return next();
+    });
+  } catch (error) {
+    return next({
+      log: `controller.hash ERROR found`,
+      status: 500,
+      message: {
+        err: 'Error occurred in controller.hash. Check the server logs.',
+      },
+    });
+  }
+};
+
+// get all users
 controller.getUsers = async (req, res, next) => {
   try {
     // SQL command string
@@ -26,6 +48,7 @@ controller.getUsers = async (req, res, next) => {
   }
 };
 
+// get all incidents in public.incident
 controller.getIncidents = async (req, res, next) => {
   try {
     // SQL command string
@@ -50,42 +73,59 @@ controller.getIncidents = async (req, res, next) => {
   }
 };
 
-controller.getIncidentByUserId = async (req, res, next) => {
-  console.log(req.params);
+// get name, and photo of a user. Requires name and password
+controller.getUserName = async (req, res, next) => {
+  console.log('req body', req.body);
   try {
-    const { userId } = req.params;
+    const { name, password } = req.body;
     // SQL command string
-    const queryString = `SELECT * from public.incident WHERE user_id = $1`;
+    const queryString = `SELECT name, password, photo from public.user WHERE name = $1`;
 
     // db query function to get info from our database
-    const result = await db.query(queryString, [userId]);
+    const result = await db.query(queryString, [name]);
 
-    // db.query will return a giant nested object. We just need the data in the rows key
+    // store result in data variable
     const data = result.rows;
+    const hash = data[0].password;
+
+    // bcrypt comparison check
+    await bcrypt.compare(password, hash, (err, ok) => {
+      if (ok) {
+        console.log('bcrypt comparison check OK');
+        return next();
+      } else {
+        res.send(err);
+      }
+    });
 
     // store data in res.locals.all to pass to api router
-    res.locals.incidentByUserId = data;
+    res.locals.user = {
+      name: data[0].name,
+      photo: data[0].photo,
+    };
+
     return next();
   } catch (error) {
     return next({
-      log: `getIncidentByUserId controller ERROR`,
+      log: `getIncidentByUserName controller ERROR`,
       message: {
-        err: 'Error occurred in controller.getIncidentByUserId. Check the server logs.',
+        err: 'Error occurred in controller.getIncidentByUserName. Check the server logs.',
       },
     });
   }
 };
 
+// query incidents in public.incident by any value matching any part of public.incident.street_name
 controller.getIncidentByStreetName = async (req, res, next) => {
   console.log(req.params);
   console.log(new Date(Date.now()).toString());
   try {
     const { name } = req.params;
     // SQL command string
-    const queryString = `SELECT * from public.incident WHERE street_name LIKE '%${name}%'`;
+    const queryString = `SELECT * from public.incident WHERE street_name LIKE '%'|| $1 || '%'`;
 
     // db query function to get info from our database
-    const result = await db.query(queryString);
+    const result = await db.query(queryString, [name]);
 
     // db.query will return a giant nested object. We just need the data in the rows key
     const data = result.rows;
@@ -103,6 +143,7 @@ controller.getIncidentByStreetName = async (req, res, next) => {
   }
 };
 
+// post incident into public.incident. Req(title, street_name, video_url, image_url, details) but values can be null!
 controller.postEvent = async (req, res, next) => {
   console.log(req.body);
   try {
@@ -110,33 +151,21 @@ controller.postEvent = async (req, res, next) => {
     const time = new Date(Date.now()).toLocaleString();
 
     // object destructuring the req.body to pass in to params
-    const {
-      incident_id,
-      title,
-      street_name,
-      video_url,
-      image_url,
-      details,
-      user_id,
-      location_id,
-    } = req.body;
+    const { title, street_name, video_url, image_url, details } = req.body;
     const params = [
       // params will be passed to db query, to insert the data object to the sql db
-      incident_id,
       title,
       street_name,
       video_url,
       image_url,
       details,
       time,
-      user_id,
-      location_id,
     ];
 
     // SQL command to insert values into the following table(public.incident) columns
     const text = `
-      INSERT INTO public.incident (incident_id, title, street_name, video_url, image_url, details, time, user_id, location_id)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      INSERT INTO public.incident (title, street_name, video_url, image_url, details, time)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *
       `;
 
@@ -157,31 +186,29 @@ controller.postEvent = async (req, res, next) => {
   }
 };
 
+
+// create a new row in public.user, storing name and encrypted password
 controller.newUser = async (req, res, next) => {
-  console.log(req.body);
+  console.log('signupInfo', res.locals.signupInfo);
+
   try {
     // object destructuring the req.body to pass in to params
-    const { user_id, name, email, photo, password } = req.body;
+    const { name, hashedPw } = res.locals.signupInfo;
+
     const params = [
       // params will be passed to db query, to insert the data object to the sql db
-      user_id,
       name,
-      email,
-      photo,
-      password,
+      hashedPw,
     ];
 
     // SQL command to insert values into the following table(public.user) columns
     const text = `
-      INSERT INTO public.user (
-        user_id,
-        name,
-        email,
-        photo,
-        password)
-      VALUES ($1, $2, $3, $4, $5)
-      RETURNING *
-      `;
+        INSERT INTO public.user (
+          name,
+          password)
+        VALUES ($1, $2)
+        RETURNING *
+        `;
 
     // our async function passing in the SQL command string 'text' and our params data
     const result = await db.query(text, params);
