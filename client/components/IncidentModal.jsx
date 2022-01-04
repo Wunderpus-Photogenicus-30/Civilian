@@ -15,8 +15,8 @@ const mapDispatchToProps = dispatch => ({
         e.target.form[0].value, 
         e.target.form[1].value, 
         e.target.form[2].value, 
-        e.target.form[3].value ?? null, 
-        e.target.form[4].value ?? null
+        e.target.form[3].value,
+        e.target.form[4].value
       )
     );
   },

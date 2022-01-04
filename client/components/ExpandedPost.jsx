@@ -36,10 +36,11 @@ const ExpandedPost = (props) => {
         <p className='post-details'> {props.details} </p>
         <p className='post-time'> {props.time} </p>
       </div> 
+      {props.video_url !== '' && 
       <div className='post-video'>
         <iframe id="yt-vid" src={props.video_url + YT_EMBED_OPTIONS} frameBorder="0">
         </iframe>
-      </div>
+      </div>}
     </div>
   );
 }
