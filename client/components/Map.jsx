@@ -4,6 +4,8 @@ import ReactMapGL, {Marker} from 'react-map-gl';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 import { bindActionCreators } from 'redux';
+import * as mapboxgl from 'mapbox-gl';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 
 // mapboxgl.accessToken = "pk.eyJ1IjoiY2hsb2VsdTI5IiwiYSI6ImNreHZld3N0aTZ4czIydHFoeG1lbXptOGYifQ.vZ7brhHmInbKGS3AtbdMCQ"
@@ -20,33 +22,35 @@ const mapStateToProps = ({map: {viewport, pinLocations}}) => ({
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
 const Map = (props) => {
+    useEffect(() => {
+        props.getCoordinates();
 
-  // 
+    }, [])
 
-    console.log(props.pinLocations)
-
+    // console.log('pinLocations are', props.pinLocations)
     return (
 
-      <ReactMapGL mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_ACCESS_TOKEN} mapStyle='mapbox://styles/chloelu29/ckxwc6fdl24xz14phmw34jij0' {...props.viewport} onViewportChange={(newViewport) => {
-          // console.log(props.viewport)
+      <ReactMapGL
+        {...props.viewport} 
+        height='100%'
+        width='100%'
+        mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_ACCESS_TOKEN} 
+        mapStyle='mapbox://styles/chloelu29/ckxwc6fdl24xz14phmw34jij0'
+        onViewportChange={(newViewport) => {
           props.setMap(newViewport)
-      }}>
-          {props.pinLocations.map((el, key) => {
-              
-              return (
-              <Marker key={key + 1} latitude={el.latitude} longitude={el.longitude}>
-              {/* button onclick post pops up */}
-                  <button onClick={(e) => {
-                      props.changeActivePost(el.latitude, el.longitude)
+        }}>
 
-                  }}style={{backgroundColor: 'transparent'}}><img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCkP7QFhZEIqrhTgIxZIJKmW0zBB50L1Fc6xVI4T7U8cNaNHxEOjxu3Wl578bNT6DHmsY&usqp=CAU'} alt='pin' style={{backgroundColor: 'transparent', height: '50px', width: '50px'}}/></button>
-              </Marker>
-              )
+          {props.pinLocations.map((el, key) => {
+              console.log('el is', el)
+            return (
+            <Marker key={key + 1} latitude={el.latitude} longitude={el.longitude} address={el.address} id={el.id}>
+                <button onClick={(e) => {
+                props.changeActivePost(el.id)
+                }}style={{backgroundColor: 'transparent'}}><img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCkP7QFhZEIqrhTgIxZIJKmW0zBB50L1Fc6xVI4T7U8cNaNHxEOjxu3Wl578bNT6DHmsY&usqp=CAU'} alt='pin' style={{backgroundColor: 'transparent', height: '50px', width: '50px'}}/></button>
+            </Marker>
+            )
           }
           )}
-          <Marker key={0} latitude={40.7128} longitude={-74}>
-              <button>original</button>
-          </Marker>
       </ReactMapGL>
 
     );
