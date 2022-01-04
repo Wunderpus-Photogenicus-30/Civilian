@@ -16,27 +16,29 @@ import ExpandedPost from './components/ExpandedPost';
 import FormModal from './components/FormModal'
 import IncidentModal from './components/IncidentModal'
 
-const mapStateToProps = ({posts: { expandedPost }}) => ({
-  expandedPost
+const mapStateToProps = ({posts: { expandedPost }, user: {isLoggedIn, username, photo}}) => ({
+  expandedPost,
+  isLoggedIn, username, photo
 })
 
 const App = (props) => {
   console.log('in app.jsx');
+  console.log(props);
 
   const [showFormModal, setShowFormModal] = useState(false);
   const [showIncidentModal, setShowIncidentModal] = useState(false);
 
   return (
     <div id='app'>
-      <IconContext.Provider value={{className: 'login-button', size:'2em'}}>
+      {!props.isLoggedIn && <IconContext.Provider value={{className: 'login-button', size:'2em'}}>
         <BsPersonCircle onClick={() => {setShowFormModal(true)}}/>
-      </IconContext.Provider>
+      </IconContext.Provider>}
+      {props.isLoggedIn && <div id="user-container"><img id='user-image' src={props.photo}/> <span id="welcome-text">Hello <b>{props.username.toUpperCase()}</b></span></div>}
       <div id="logo-wrapper">
         <img id="logo" src={logo}/>
       </div>
       <div id="main-content">
         <div id="map">
-          {/* <img id="map-img" src="https://assets.website-files.com/5e832e12eb7ca02ee9064d42/5f7db426b676b95755fb2844_Group%20805.jpg"/> */}
           <Map onOpenIncidentFormClick={() => {setShowIncidentModal(true)}} />
         </div>
         <Post />

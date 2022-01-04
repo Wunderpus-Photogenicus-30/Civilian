@@ -51,6 +51,29 @@ body{
   left: 2vw;
 }
 
+#user-container{
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 2vw;
+  left: 2vw;
+  height: 32px;
+}
+
+#user-image{
+  border-radius: 50%;
+  width: 32px;
+}
+
+#welcome-text{
+  margin-left: 10px;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+
+
 #logo-wrapper{
   flex: 1 1 10vh;
   margin-top: 20px;
@@ -74,6 +97,18 @@ body{
 #map-img{
   width: 100%;
   height: 100%;;
+}
+
+.map-pin{
+  background-color: transparent;
+  height: 50px;
+  width: 50px;
+  transition-timing-function: ease-in;
+  transition: transform 0.51s;
+}
+
+.map-pin:active{
+  transform: scale3d(2, 2, 5);
 }
 
 .post {

@@ -11,11 +11,11 @@ const userReducer = (state=initialState, action) => {
   switch (action.type){
 
     case types.GET_USERNAME:
-    console.log(action.payload);
+    console.log('get user payload', action.payload);
     return {
       ...state,
       isLoggedIn: true,
-      username: action.payload.username,
+      username: action.payload.name,
       photo: action.payload.photo
     };
 
@@ -27,4 +27,4 @@ const userReducer = (state=initialState, action) => {
 }
 
 
-export default postsReducer;
+export default userReducer;

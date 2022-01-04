@@ -75,7 +75,7 @@ controller.getIncidents = async (req, res, next) => {
 
 // get name, and photo of a user. Requires name and password
 controller.getUserName = async (req, res, next) => {
-  console.log('req body', req.body);
+  console.log('USERNAME req body', req.body);
   try {
     const { name, password } = req.body;
     // SQL command string
