@@ -20,10 +20,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const FormModal = (props) => {
-  console.log(props);
   return (
     <div id="modal-overlay">
-      <form id="form-modal">
+      <form className='form-modal'>
         <IconContext.Provider value={{className: 'exit-modal', size:'1.5em'}}>
           <AiOutlineCloseCircle onClick={(e) => props.onCloseButtonClick()}/>
         </IconContext.Provider>

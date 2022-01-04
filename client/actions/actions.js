@@ -18,7 +18,7 @@ export const setExpandedPost = (visibility) => ({
 export const getUsername = (username, password) => (dispatch) => {
 
   console.log('in getusername axios req');
-  axios.post(`/api/user`, {
+  axios.post(`/api/incidents/user`, {
       username: username,
       password: password
     })
@@ -35,7 +35,7 @@ export const getUsername = (username, password) => (dispatch) => {
 export const signUp = (username, password) => (dispatch) => {
 
   console.log('in signUpAndGetUsername axios req');
-  axios.post(`/api/newUser`, {
+  axios.post(`signup`, {
       username: username,
       password: password
     })
@@ -43,6 +43,27 @@ export const signUp = (username, password) => (dispatch) => {
       console.log('data', data);
       dispatch({
         type: types.GET_USERNAME,
+        payload: data,
+      });
+    })
+    .catch(console.error);
+};
+
+
+export const postEvent = (title, street_name, details, image_url, video_url) => (dispatch) =>{
+
+  console.log('in postEvent axios req');
+  axios.post(`/api/postevent`, {
+      title: title,
+      street_name: street_name,
+      video_url: video_url,
+      image_url: image_url,
+      details: details
+    })
+    .then(({data}) => {
+      console.log('data', data);
+      dispatch({
+        type: types.POST_EVENT,
         payload: data,
       });
     })

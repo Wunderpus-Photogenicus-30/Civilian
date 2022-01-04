@@ -210,7 +210,7 @@ body{
   align-items: center;
 }
 
-#form-modal {
+.form-modal {
   position: relative;
   background-color: #1c1c1e;
   color: white;
@@ -223,6 +223,10 @@ body{
   justify-content: center;
   align-items: center;
   gap: 20px;
+}
+
+#incident-form{
+  max-height: 600px;
 }
 
 label {
@@ -239,6 +243,10 @@ label {
   color: white;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.input-div{
+  width: 100%;
 }
 
 
