@@ -1,13 +1,20 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  title: 'Noise Disturbance',
-  steet_name: 'Codesmith HQ',
-  details: 'Reports of excessive hollering and clapping noise',
-  time: '6:30pm',
-  image_url: 'https://static.frontendmasters.com/assets/teachers/sentance/thumb@2x.jpg',
-  video_url: 'https://www.youtube.com/embed/sqAwvpw_FKc',
-  expandedPost: false,
+  // title: 'Noise Disturbance',
+  // steet_name: 'Codesmith HQ',
+  // details: 'Reports of excessive hollering and clapping noise',
+  // time: '6:30pm',
+  // image_url: 'https://static.frontendmasters.com/assets/teachers/sentance/thumb@2x.jpg',
+  // video_url: 'https://www.youtube.com/embed/sqAwvpw_FKc',
+  // expandedPost: false,
+  title: null,
+  street_name: null,
+  details: null,
+  time: null,
+  image_url: null,
+  video_url: null,
+  expandedPost: false
   
 };
 

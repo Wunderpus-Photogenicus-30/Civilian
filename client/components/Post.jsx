@@ -23,7 +23,8 @@ const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 const Post = (props) => {
   console.log(props);
   return (
-    <div className='post'>
+    <>
+    {props.title !== null && (<div className='post'>
       <div className='post-header'>
         <p className='post-time'>Last updated at {props.time} </p>
         <p className='post-title'> {props.title} </p>
@@ -43,7 +44,9 @@ const Post = (props) => {
           </g></g>
         </svg> }
       </div> */}
-    </div>
+    </div>)
+    }
+    </>
   );
 }
 

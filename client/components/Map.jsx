@@ -30,10 +30,17 @@ const Map = (props) => {
     // console.log('pinLocations are', props.pinLocations)
     return (
 
-      <ReactMapGL mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_ACCESS_TOKEN} mapStyle='mapbox://styles/chloelu29/ckxwc6fdl24xz14phmw34jij0' {...props.viewport} onViewportChange={(newViewport) => {
+      <ReactMapGL
+        {...props.viewport} 
+        height='100%'
+        width='100%'
+        mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_ACCESS_TOKEN} 
+        mapStyle='mapbox://styles/chloelu29/ckxwc6fdl24xz14phmw34jij0'
+        onViewportChange={(newViewport) => {
+            console.log(newViewport);
           // console.log(props.viewport)
           props.setMap(newViewport)
-      }}>
+        }}>
           {props.pinLocations.map((el, key) => {
               console.log('el is', el)
             return (
@@ -49,9 +56,6 @@ const Map = (props) => {
             )
           }
           )}
-          <Marker key={0} latitude={40.7128} longitude={-74}>
-              <button>original</button>
-          </Marker>
       </ReactMapGL>
 
     );

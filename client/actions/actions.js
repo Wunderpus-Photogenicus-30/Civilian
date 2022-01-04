@@ -41,7 +41,7 @@ export const changeActivePost = (incident_id) => (dispatch, getState) =>{
 };
 
 export const getCoordinates = () => (dispatch) => {
-  axios.get(`api/incidents/location/NY`)
+  axios.get(`api/incidents/`)
   .then(({data}) => {
       // console.log('data', data);
       const addresses = [];
@@ -69,6 +69,19 @@ export const getCoordinates = () => (dispatch) => {
       dispatch({type: types.GET_COORDINATES, payload: coordinates})
     })
 }
+
+// //convert coordinates to address action 
+// export const getAddress = () => (dispatch) => {
+//   //convert coordinates to address 
+//   axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/-73.989,40.733.json?access_token=pk.eyJ1IjoiY2hsb2VsdTI5IiwiYSI6ImNreHZld3N0aTZ4czIydHFoeG1lbXptOGYifQ.vZ7brhHmInbKGS3AtbdMCQ`)
+//   .then(({data}) => {
+//     let address = data.features[0].place_name
+//   })
+
+//   //send post request to database
+//   axios.post(`api/postevent`)
+ 
+// }
 
 
 
