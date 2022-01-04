@@ -47,26 +47,32 @@ export const getCoordinates = () => (dispatch) => {
       const addresses = [];
 
       for(let incident of data){
-          addresses.push({address: incident.street_name, id: incident.incident_id})
+        addresses.push({address: incident.street_name, id: incident.incident_id})
       }
       //convert queryString to the correct format
+      const promises = [];
       const coordinates = [];
       for(let location of addresses){
         const query = location.address.replace(' ', '%20');
-        axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=pk.eyJ1IjoiY2hsb2VsdTI5IiwiYSI6ImNreHZld3N0aTZ4czIydHFoeG1lbXptOGYifQ.vZ7brhHmInbKGS3AtbdMCQ`)
-          .then(({data}) => {
-              // console.log('location data', data)
-              // console.log(data.features[0].center[1])
-              // console.log(data.features[0].place_name)
-              coordinates.push(
-                  {"latitude": data.features[0].center[1], "longitude": data.features[0].center[0], "address": data.features[0].place_name, "id" : location.id}
-                  )
-              // console.log('coordinates', coordinates)
-          })
-        
+        coordinates.push({id: location.id});
+        promises.push(axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=pk.eyJ1IjoiY2hsb2VsdTI5IiwiYSI6ImNreHZld3N0aTZ4czIydHFoeG1lbXptOGYifQ.vZ7brhHmInbKGS3AtbdMCQ`))
       }
-      
-      dispatch({type: types.GET_COORDINATES, payload: coordinates})
+      Promise.all(promises)
+      .then(responses => {
+        //console.log(responses)
+
+        for (const index in responses){
+          console.log('resp', index,coordinates[index])
+          Object.assign(coordinates[index], (
+            {"latitude": responses[index].data.features[0].center[1], 
+            "longitude": responses[index].data.features[0].center[0], 
+            "address": responses[index].data.features[0].place_name, 
+            }
+          ))
+        }
+        console.log('here', coordinates)
+        dispatch({type: types.GET_COORDINATES, payload: coordinates});
+      }); 
     })
 }
 

@@ -37,20 +37,15 @@ const Map = (props) => {
         mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_ACCESS_TOKEN} 
         mapStyle='mapbox://styles/chloelu29/ckxwc6fdl24xz14phmw34jij0'
         onViewportChange={(newViewport) => {
-            console.log(newViewport);
-          // console.log(props.viewport)
           props.setMap(newViewport)
         }}>
+
           {props.pinLocations.map((el, key) => {
               console.log('el is', el)
             return (
             <Marker key={key + 1} latitude={el.latitude} longitude={el.longitude} address={el.address} id={el.id}>
-            {/* button onclick post pops up */}
                 <button onClick={(e) => {
-
-                // console.log(e.target.value)
                 props.changeActivePost(el.id)
-
                 }}style={{backgroundColor: 'transparent'}}><img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCkP7QFhZEIqrhTgIxZIJKmW0zBB50L1Fc6xVI4T7U8cNaNHxEOjxu3Wl578bNT6DHmsY&usqp=CAU'} alt='pin' style={{backgroundColor: 'transparent', height: '50px', width: '50px'}}/></button>
             </Marker>
             )
