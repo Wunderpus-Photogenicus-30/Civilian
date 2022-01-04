@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { BsBoxArrowRight } from 'react-icons/bs'
 import { IconContext } from 'react-icons';
 
-const YT_EMBED_OPTIONS = '?loop=1&autoplay=1&rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0';
+const YT_EMBED_OPTIONS = 'loop=1&autoplay=1&rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0';
 
 console.log('in ExpandedPost.jsx');
 
