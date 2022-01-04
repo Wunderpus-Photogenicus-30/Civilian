@@ -19,7 +19,7 @@ router.get(
 );
 
 // gets name, photo from pulblic.user, passing username &  decrypting password in req.body
-router.get(
+router.post(
   '/incidents/user', 
   controller.getUserName, 
   (req, res) => res.status(200).json(res.locals.user)

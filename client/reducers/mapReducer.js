@@ -31,22 +31,32 @@ const mapReducer = (state = initialState, action) => {
     // console.log(state)
   switch (action.type){
     case types.SET_MAP:
-        const newState = Object.assign(state, action.payload)
+      const newState = Object.assign(state, action.payload)
     return {
-        ...state,
-        viewport: {
-            ...newState
-        }
+      ...state,
+      viewport: {
+          ...newState
+      }
     };
     case types.GET_COORDINATES: 
-        
-        return {
-            ...state,
-            pinLocations: action.payload
-        }
+      console.log('in get coords mapreducer')
+      const newPins = [...action.payload];
+      return {
+        ...state,
+        pinLocations: newPins
+      }
+    case types.POST_EVENT:
+      const newIncidents = [...state.allIncidents];//.push(action.payload);
+      newIncidents.push(action.payload);
+      // const newPins = [...state.pinLocations];
+      // newPins.push(action.payload)
+      return{
+        ...state,
+        allIncidents : [...newIncidents]
+      }
     default:
-    return state;
+      return state;
 
-    }
+      }
 }
 export default mapReducer;
