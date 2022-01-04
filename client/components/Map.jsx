@@ -6,6 +6,8 @@ import * as actions from '../actions/actions';
 import { bindActionCreators } from 'redux';
 import CustomMapController from './CustomMapController';
 import logo from '../../assets/danger-pin.png'
+import * as mapboxgl from 'mapbox-gl';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 console.log('in Map.jsx')
 //destructuring the state to get lng, lat, zoom from redux state and put them into prop obj 
@@ -26,25 +28,25 @@ const Map = (props) => {
 
   return (
     
-    <ReactMapGL mapboxApiAccessToken = {
-      process.env.REACT_APP_MAPBOX_ACCESS_TOKEN} 
+    <ReactMapGL
+      {...props.viewport} 
+      height='100%'
+      width='100%' 
+      mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_ACCESS_TOKEN} 
       
       // on dbl click => get coordinates, open incident modal, create a pin and send off to reducer 
       onDblClick={({ lngLat: [longitude, latitude] }) => {console.log(longitude, latitude); props.onOpenIncidentFormClick()}}
       mapStyle='mapbox://styles/ruzeb/ckxzlf0mk9gn714qei4cq6lm1' 
       doubleClickZoom={false}
       attributionControl={false}
-      
-      {...props.viewport} 
-      
       onViewportChange={(newViewport) => {props.setMap(newViewport)}
     }>
         {props.pinLocations.map((el, key) => {
           return (
             
-          <Marker key={key + 1} latitude={el.latitude} longitude={el.longitude}>
+          <Marker key={key + 1} latitude={el.latitude} longitude={el.longitude} address={el.address} id={el.id}>
           {/* button onclick post pops up */}
-            <button className='map-pin' onClick={(e) => {props.changeActivePost(el.latitude, el.longitude)}} style={{backgroundColor: 'transparent', border: 'none'}}>
+            <button className='map-pin' onClick={(e) => {props.changeActivePost(el.id)}} style={{backgroundColor: 'transparent', border: 'none'}}>
               <img src={logo} alt='pin' style={{backgroundColor: 'transparent', height: '50px', width: '50px'}}/>
             </button>
           </Marker>
@@ -52,7 +54,6 @@ const Map = (props) => {
         }
         )}
     </ReactMapGL>
-
   );
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

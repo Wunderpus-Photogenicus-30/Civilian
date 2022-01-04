@@ -87,11 +87,12 @@ body{
 }
 
 #map {
-  width: 80%;
+  width: 100%;
+  position: relative;
   min-height: 100px;
   min-width: 300px;
   flex: 1 1 50vh;
-  border: 1px white solid;
+  border: 1px red solid;
 }
 
 #map-img{

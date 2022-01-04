@@ -12,12 +12,12 @@ console.log('in ExpandedPost.jsx');
 // we are destructuring the state to get the title, loc, details, time from
 // the redux state and placing them into the props object
 // The Post component "subscribes to" the changes seen in the state
-const mapStateToProps = ({posts:{ title, location, details, time, videoUrl }}) => ({
+const mapStateToProps = ({posts:{ title, street_name, details, time, video_url }}) => ({
   title,
-  location,
+  street_name,
   details,
   time,
-  videoUrl
+  video_url
 })
 
 // allows us to use the actions in actions.js without having to wrap them so that we can invoke those functions
@@ -32,12 +32,12 @@ const ExpandedPost = (props) => {
       </IconContext.Provider>
       <div id='expanded-header' className='post-header'>
         <p className='post-title'> {props.title} </p>
-        <p className='post-location'> {props.location} </p>
+        <p className='post-location'> {props.street_name} </p>
         <p className='post-details'> {props.details} </p>
         <p className='post-time'> {props.time} </p>
       </div> 
       <div className='post-video'>
-        <iframe id="yt-vid" src={props.videoUrl + YT_EMBED_OPTIONS} frameBorder="0">
+        <iframe id="yt-vid" src={props.video_url + YT_EMBED_OPTIONS} frameBorder="0">
         </iframe>
       </div>
     </div>
