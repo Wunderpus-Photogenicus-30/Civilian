@@ -59,6 +59,10 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
         test: /.(css|scss)$/,
         include: [/client\/stylesheets\/modules/],
         use: [
@@ -72,9 +76,16 @@ module.exports = {
           },
           'sass-loader'],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        use: {
+          loader: 'url-loader',
+        },
+      },
     ],
   },
   plugins: [
+    new webpack.EnvironmentPlugin({"REACT_APP_MAPBOX_ACCESS_TOKEN": "pk.eyJ1IjoiY2hsb2VsdTI5IiwiYSI6ImNreHZld3N0aTZ4czIydHFoeG1lbXptOGYifQ.vZ7brhHmInbKGS3AtbdMCQ"}),
     new HtmlWebpackPlugin({
       template: './client/index.html',
     }),
