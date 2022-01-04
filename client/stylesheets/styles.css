@@ -53,6 +53,7 @@ body{
 
 .login-button:hover{
   color: #c94646;
+  cursor: pointer;
 }
 
 #user-container{
@@ -79,15 +80,58 @@ body{
 
 
 #logo-wrapper{
+  position: relative;
   flex: 1 1 10vh;
   margin-top: 20px;
   max-height: 100px;
   max-width: 100px;
 }
 
+#logo-wrapper > span {
+  font-size: 2rem;
+  color: white;
+}
+
+#civ{
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translate(-90%, -50%);
+}
+
+#lian{
+  position: absolute;
+  top: 50%;
+  left: 90%;
+  transform: translate(0, -50%);
+}
+
 #logo{
+  z-index: 30;
   width: 100%;
   height: 100%;
+}
+
+#logo:hover{
+  animation: rotate-btn .5s linear 3;
+}
+
+@keyframes rotate-btn {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-45deg);
+  }
+  50% {
+    transform: rotate(0);
+  }
+  75% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
 }
 
 #map {
@@ -124,6 +168,7 @@ body{
   max-width: 500px;
   display: flex;
   justify-content: space-between;
+  cursor: zoom-in;
   margin-top: -200px;
   padding: 10px;
   border-radius: 12px;
@@ -192,6 +237,11 @@ body{
   align-self: flex-end;
 }
 
+.minimize-expanded:hover{
+  cursor: pointer;
+  color: #c94646;
+}
+
 .post-video{
   border: 1px white solid;
   height: 500px;
@@ -227,6 +277,7 @@ body{
   background-color: #c94646;
   color: white;
 }
+
 /* fires as element leaves the DOM*/
 .expanded-transition-exit-active {
   top: 0;
@@ -338,6 +389,7 @@ label {
 
 .exit-modal:hover{
   color: #c94646;
+  cursor: pointer;
 }
 
 #modal-logo-wrapper{

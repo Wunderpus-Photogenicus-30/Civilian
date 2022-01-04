@@ -31,7 +31,7 @@ const Post = (props) => {
         <p className='post-location'> {props.street_name} </p>
         <p className='post-details'> {props.details} </p>
       </div> 
-      {props.image_url !== '' && <div className='post-image'>
+      {props.image_url && <div className='post-image'>
         <img id='thumbnail' src={props.image_url} alt="thumbnail-image" />
       </div>}
     </div>)
