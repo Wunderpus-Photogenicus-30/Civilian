@@ -8,12 +8,12 @@ console.log('in Post.jsx');
 // we are destructuring the state to get the title, loc, details, time from
 // the redux state and placing them into the props object
 // The Post component "subscribes to" the changes seen in the state
-const mapStateToProps = ({posts: { title, location, details, time, imgUrl }}) => ({
+const mapStateToProps = ({posts: { title, street_name, details, time, image_url }}) => ({
   title,
-  location,
+  street_name,
   details,
   time,
-  imgUrl
+  image_url
 })
 
 // allows us to use the actions in actions.js without having to wrap them so that we can invoke those functions
@@ -27,11 +27,11 @@ const Post = (props) => {
       <div className='post-header'>
         <p className='post-time'>Last updated at {props.time} </p>
         <p className='post-title'> {props.title} </p>
-        <p className='post-location'> {props.location} </p>
+        <p className='post-location'> {props.street_name} </p>
         <p className='post-details'> {props.details} </p>
       </div> 
       <div className='post-image'>
-        <img id='thumbnail' src={props.imgUrl} alt="thumbnail-image" onClick={() => props.setExpandedPost(true)}/>
+        <img id='thumbnail' src={props.image_url} alt="thumbnail-image" onClick={() => props.setExpandedPost(true)}/>
       </div>
       {/* <div className='post-icons'>
         { <svg xmlns="http://www.w3.org/2000/svg"  aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 128 128">

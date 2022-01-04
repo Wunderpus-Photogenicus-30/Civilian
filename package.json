@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/Wunderpus-Photogenicus-30/Civilian#readme",
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^4.7.4",
+    "@mapbox/mapbox-sdk": "^0.13.2",
     "axios": "^0.24.0",
     "cors": "^2.8.5",
     "express": "^4.17.2",
