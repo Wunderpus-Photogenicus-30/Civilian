@@ -51,6 +51,10 @@ body{
   left: 2vw;
 }
 
+.login-button:hover{
+  color: #c94646;
+}
+
 #user-container{
   position: fixed;
   display: flex;
@@ -174,7 +178,7 @@ body{
   gap: 10px;
   padding: 15px;
   z-index: 1000;
-  background-color: #000000;
+  background-color: #c94646;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -212,7 +216,7 @@ body{
 .expanded-transition-appear-active {
   top: 0;
   right: 0;
-  background-color: black;
+  background-color: #c94646;
   color: white;
   transition: all 400ms;
 }
@@ -220,7 +224,7 @@ body{
 .expanded-transition-exit {
   top: 0;
   right: 0;
-  background-color: black;
+  background-color: #c94646;
   color: white;
 }
 /* fires as element leaves the DOM*/
@@ -303,13 +307,13 @@ label {
 }
 
 #signup-button{
-  background-color: #3c6d20;
+  background-color: #3dd48e;
 }
 #signup-button:hover{
   background-color: #603aeb;
 }
 #login-button{
-  background-color: #3dd48e;
+  background-color: #3c6d20;
 }
 #login-button:hover{
   background-color: #603aeb;
@@ -333,7 +337,7 @@ label {
 }
 
 .exit-modal:hover{
-  color: rgb(139, 22, 22);
+  color: #c94646;
 }
 
 #modal-logo-wrapper{

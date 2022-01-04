@@ -80,6 +80,7 @@ export const changeActivePost = (incident_id) => (dispatch, getState) =>{
 };
 
 export const getCoordinates = () => (dispatch) => {
+  console.log('in getCoordinates')
   axios.get(`api/incidents/`)
   .then(({data}) => {
       // console.log('data', data);
@@ -113,6 +114,7 @@ export const getCoordinates = () => (dispatch) => {
         dispatch({type: types.GET_COORDINATES, payload: coordinates});
       }); 
     })
+    .catch(console.error);
 }
 
 // //convert coordinates to address action 

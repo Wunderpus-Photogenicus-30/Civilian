@@ -24,6 +24,9 @@ const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 const mapController = new CustomMapController();
 
 const Map = (props) => {
+  useEffect(() => {
+    props.getCoordinates();
+  }, [])
   //console.log(props.pinLocations)
 
   return (
