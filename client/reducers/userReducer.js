@@ -4,6 +4,7 @@ const initialState = {
   isLoggedIn: false,
   username: '',
   photo: '',
+  lngLat: []
 };
 
 const userReducer = (state=initialState, action) => {
@@ -17,6 +18,13 @@ const userReducer = (state=initialState, action) => {
       isLoggedIn: true,
       username: action.payload.name,
       photo: action.payload.photo
+    };
+
+    case types.SAVE_USER_COORDS:
+    console.log('save user coords reducer', action.payload);
+    return {
+      ...state,
+      lngLat : [...action.payload]
     };
 
     default:

@@ -51,10 +51,17 @@ export const signUp = (username, password) => (dispatch) => {
 };
 
 
-export const postEvent = (title, street_name, details, image_url, video_url) => (dispatch) =>{
+export const postEvent = (title, details, image_url, video_url) => (dispatch, getState) =>{
 
   console.log('in postEvent axios req');
-  axios.post(`/api/postevent`, {
+  const lngLat = getState().user.lngLat;
+  console.log('lnglat in postevent', lngLat);
+
+  const [lng, lat] = lngLat;
+  axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`)
+  .then(({data}) => {
+    let street_name = data.features[0].place_name
+    axios.post(`/api/postevent`, {
       title: title,
       street_name: street_name,
       video_url: video_url,
@@ -65,10 +72,20 @@ export const postEvent = (title, street_name, details, image_url, video_url) => 
       console.log('data', data);
       dispatch({
         type: types.POST_EVENT,
-        payload: data,
+        payload: data
+        // payload: [data, {
+        //   "latitude": lat, 
+        //   "longitude": lng, 
+        //   "address": street_name, 
+        // },
       });
+      console.log('got here')
+      //getCoordinates();
     })
     .catch(console.error);
+  })
+  .catch(console.error);
+  
 };
 
 
@@ -102,7 +119,7 @@ export const getCoordinates = () => (dispatch) => {
         //console.log(responses)
 
         for (const index in responses){
-          console.log('resp', index,coordinates[index])
+          //console.log('resp', index,coordinates[index])
           Object.assign(coordinates[index], (
             {"latitude": responses[index].data.features[0].center[1], 
             "longitude": responses[index].data.features[0].center[0], 
@@ -116,6 +133,12 @@ export const getCoordinates = () => (dispatch) => {
     })
     .catch(console.error);
 }
+
+export const saveUserCoords = (lngLat) => ({
+  // console.log('in saveusercoords', lnglat);
+  type: types.SAVE_USER_COORDS,
+  payload: lngLat,
+});
 
 // //convert coordinates to address action 
 // export const getAddress = () => (dispatch) => {

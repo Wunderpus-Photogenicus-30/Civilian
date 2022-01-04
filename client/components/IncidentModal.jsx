@@ -1,9 +1,14 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { postEvent } from '../actions/actions';
+import { postEvent, getCoordinates } from '../actions/actions';
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { IconContext } from 'react-icons';
 import logo from '../../assets/danger-pin.png'
+import { useState, useEffect } from 'react';
+
+const mapStateToProps = ({map: {allIncidents}}) => ({
+  allIncidents
+})
 
 const mapDispatchToProps = dispatch => ({
   // create functions that will dispatch action creators
@@ -16,14 +21,29 @@ const mapDispatchToProps = dispatch => ({
         e.target.form[1].value, 
         e.target.form[2].value, 
         e.target.form[3].value,
-        e.target.form[4].value
+        // e.target.form[4].value
       )
     );
   },
+  // refreshPins: () => {
+  //   console.log('refreshing pins')
+  //   dispatch(getCoordinates());
+  // }
 });
 
 const IncidentModal = (props) => {
   console.log(props);
+  // const [pinLoc, setPinLoc] = useState(props.allIncidents);
+
+
+  // useEffect(() => {
+  //   props.refreshPins();
+  // }, [props.allIncidents])
+  // setPinLoc => {
+  //   useEffect(() => {
+  //     props.getCoordinates();
+  //   })
+  // }
   return (
     <div id="modal-overlay">
       <form id="incident-form" className='form-modal'>
@@ -37,10 +57,10 @@ const IncidentModal = (props) => {
           <label htmlFor="title">TITLE</label>
           <input className="form-input" type="text" name="title" placeholder="Title of Incident"/>
         </div>
-        <div className="input-div">
+        {/* <div className="input-div">
           <label htmlFor="address">ADDRESS</label>
           <input className="form-input" type="text" name="address" placeholder="Enter the location"/>
-        </div>
+        </div> */}
         <div className="input-div">
           <label htmlFor="details">DETAILS</label>
           <input className="form-input" type="text" name="details" placeholder="Enter any details"/>
