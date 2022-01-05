@@ -7,8 +7,6 @@ const PG_URI = 'postgres://qvlqajje:HrMf5gGqZv9ROy972cYrtxDsbbQCAqN8@kashin.db.e
     connectionString: PG_URI,
   });
 
-
-
   /* 
   the database has multiple tables:
 
@@ -35,7 +33,6 @@ const PG_URI = 'postgres://qvlqajje:HrMf5gGqZv9ROy972cYrtxDsbbQCAqN8@kashin.db.e
     },
 
   */  
-
   /* 
     table public.comments:
     {
