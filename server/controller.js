@@ -117,7 +117,7 @@ controller.getUserName = async (req, res, next) => {
 
 // query incidents in public.incident by any value matching any part of public.incident.street_name
 controller.getIncidentByStreetName = async (req, res, next) => {
-  console.log(req.params);
+  console.log("REQ.PARAMS: ", req.params);
   console.log(new Date(Date.now()).toString());
   try {
     const { name } = req.params;
@@ -323,6 +323,26 @@ controller.updateIncidentDetails = async (req, res, next) => {
       status: 500,
       message: {
         err: 'Error occurred in controller.updateIncidentDetails. Check the server logs.',
+      },
+    });
+  }
+};
+
+// removes fields in public.incident table by column name
+controller.removeIncident = async (req, res, next) => {
+  console.log('req.body', req.body);
+  try {
+    const { id } = req.params; // for sql WHERE
+    const text = `DELETE FROM public.incident WHERE incident_id = $1`;
+
+    await db.query(text, [id]);
+    return next();
+  } catch (error) {
+    return next({
+      log: `controller.removeIncidentTitle ERROR found`,
+      status: 500,
+      message: {
+        err: 'Error occurred in controller.removeIncidentTitle. Check the server logs.',
       },
     });
   }
