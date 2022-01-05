@@ -73,6 +73,36 @@ controller.getIncidents = async (req, res, next) => {
   }
 };
 
+controller.getCommentsByIncident = async (req, res, next) => {
+  
+  try {
+
+    console.log(req.params);
+    // destructure incident id from parameters of incoming request
+    const { incident_id } = req.params;
+
+    // SQL command string
+    const queryString = `SELECT comment, created_on, name, photo from COMMENTS JOIN public.user ON public.user.user_id = comments.user_id WHERE incident_id = $1`;
+
+    // db query function to get info from our database
+    const result = await db.query(queryString, [incident_id]);
+
+    // db.query will return a giant nested object. We just need the data in the rows key
+    const data = result.rows;
+
+    // store data in res.locals.all to pass to api router
+    res.locals.comments = data;
+    return next();
+  } catch (error) {
+    return next({
+      log: `getCommentsbyIncident controller ERROR ${error}`,
+      message: {
+        err: 'Error occurred in controller.getCommentsbyIncident. Check the server logs.',
+      },
+    });
+  }
+};
+
 // get name, and photo of a user. Requires name and password
 controller.getUserName = async (req, res, next) => {
   console.log('USERNAME req body', req.body);
